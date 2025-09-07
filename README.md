@@ -1,8 +1,8 @@
-# nightly
+# daywalker
 
-[![Crates.io](https://img.shields.io/crates/v/nightly.svg)](https://crates.io/crates/nightly)
-[![Documentation](https://docs.rs/nightly/badge.svg)](https://docs.rs/nightly)
-[![Build Status](https://github.com/npmccallum/nightly/workflows/CI/badge.svg)](https://github.com/npmccallum/nightly/actions)
+[![Crates.io](https://img.shields.io/crates/v/daywalker.svg)](https://crates.io/crates/daywalker)
+[![Documentation](https://docs.rs/daywalker/badge.svg)](https://docs.rs/daywalker)
+[![Build Status](https://github.com/npmccallum/daywalker/workflows/CI/badge.svg)](https://github.com/npmccallum/daywalker/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Rust 1.63+](https://img.shields.io/badge/rust-1.56+-orange.svg)](https://www.rust-lang.org)
 
@@ -11,7 +11,7 @@ Write nightly-conditional code once. Run on both nightly and stable Rust.
 ```rust
 #![cfg_attr(feature = "nightly", feature(const_trait_impl))]
 
-nightly::nightly! {
+daywalker::roam! {
     pub ++[const] trait Name {
         fn name(&self) -> &'static str;
     }
@@ -33,8 +33,8 @@ features or stable compatibility.
 
 ## How it works
 
-1. Use the function-like proc-macro: `nightly! { ... }`.
-2. Inside the proc-macro, use the conditional operators:
+1. Use the function-like proc-macro: `roam! { ... }`.
+2. Inside the proc-macro, use the conditional operators ("bitemarks"):
 
 - **`++[...]`**: Emit code only when `nightly` feature is enabled
 - **`--[...]`**: Emit code only when `nightly` feature is disabled
@@ -59,10 +59,10 @@ name = "cool-lib"
 version = "1.0.0"
 
 [dependencies]
-nightly = "0.1"
+daywalker = "1.0"
 
 [features]
-nightly = ["nightly/nightly"]
+nightly = ["daywalker/nightly"]
 ```
 
 Then, define and implement conditional code using the nightly syntax with prefix
@@ -72,7 +72,7 @@ operators:
 // src/lib.rs
 #![cfg_attr(feature = "nightly", feature(const_trait_impl))]
 
-nightly::nightly! {
+daywalker::roam! {
     pub ++[const] trait Compute {
         fn compute(&self) -> u32;
     }

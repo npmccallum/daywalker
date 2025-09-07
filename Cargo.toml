@@ -1,12 +1,12 @@
 [package]
-name = "nightly"
+name = "daywalker"
 version = "0.1.0"
 edition = "2021"
 description = "proc-macro for nightly conditional tokens"
 license = "MIT"
-repository = "https://github.com/npmccallum/nightly"
-homepage = "https://github.com/npmccallum/nightly"
-documentation = "https://docs.rs/nightly"
+repository = "https://github.com/npmccallum/daywalker"
+homepage = "https://github.com/npmccallum/daywalker"
+documentation = "https://docs.rs/daywalker"
 keywords = ["nightly", "proc-macro", "compatibility"]
 categories = ["development-tools::procedural-macro-helpers"]
 readme = "README.md"

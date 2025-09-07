@@ -1,6 +1,12 @@
+//! Below you will find the canonical example of const trait syntax, adapted to use this
+//! crate. At the time of this writing, the const trait syntax is only available on
+//! nightly. This feature requires a syntax change, which makes it difficult to share
+//! code between nightly and stable. Using this crate, however, we can write the same
+//! codebase for both nightly and stable by using the conditional inclusion syntax.
+
 #![cfg_attr(feature = "nightly", feature(const_trait_impl))]
 
-nightly::nightly! {
+daywalker::roam! {
     pub ++[const] trait Default {
         fn default() -> Self;
     }

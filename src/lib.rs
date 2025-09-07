@@ -1,4 +1,4 @@
-//! # nightly - Conditional Nightly Code Inclusion
+//! # daywalker - Conditional Nightly Code Inclusion
 //!
 //! This crate enables the sharing of code between nightly and stable Rust by
 //! providing conditional inclusion syntax. It is small and lightweight. It works
@@ -7,7 +7,7 @@
 //! without the feature. That's it!
 //!
 //! When the nightly features you're using are stabilized, you can remove the
-//! conditional prefixes and remove the use of this crate.
+//! conditional prefixes (called "bitemarks") and remove the use of this crate.
 //!
 //! ## Example
 //!
@@ -21,7 +21,7 @@
 //! ```rust
 //! #![cfg_attr(feature = "nightly", feature(const_trait_impl))]
 //!
-//! nightly::nightly! {
+//! daywalker::roam! {
 //!     pub ++[const] trait Default {
 //!         fn default() -> Self;
 //!     }
@@ -117,11 +117,11 @@ impl Process for TokenStream {
 /// - `++[...]` includes content only when `feature = "nightly"` is enabled
 /// - `--[...]` includes content only when `feature = "nightly"` is disabled
 ///
-/// The macro processes the input token stream and conditionally includes or
+/// This macro processes the input token stream and conditionally includes or
 /// excludes bracketed content based on the feature flag. This enables writing
-/// code that uses nightly features when available but falls back to stable
+/// code that uses nightly syntax when available but falls back to stable
 /// alternatives when not.
 #[proc_macro]
-pub fn nightly(input: TokenStream) -> TokenStream {
+pub fn roam(input: TokenStream) -> TokenStream {
     input.process()
 }
