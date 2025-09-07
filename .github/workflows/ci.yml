@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: 1
+
+jobs:
+  test:
+    name: Test
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        rust:
+          - vers: "1.53" # MSRV
+            feat: ""
+          - vers: stable
+            feat: ""
+          - vers: nightly
+            feat: ""
+          - vers: nightly
+            feat: "nightly"
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: install rust
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ matrix.rust.vers }}
+          components: rustfmt, clippy
+
+      - name: cache dependencies
+        uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.rust.vers }}-${{ matrix.rust.feat }}-${{ matrix.os }}
+
+      - name: cargo fmt
+        if: matrix.rust.vers == 'stable' && matrix.os == 'ubuntu-latest'
+        run: cargo fmt --all -- --check
+
+      - name: cargo clippy
+        if: matrix.rust.vers == 'stable' || matrix.rust.vers == 'nightly'
+        run:
+          cargo clippy --all-targets --features '${{ matrix.rust.feat }}' -- -D
+          warnings
+
+      - name: cargo doc
+        if: matrix.rust.vers == 'stable' || matrix.rust.vers == 'nightly'
+        run:
+          cargo doc --no-deps --document-private-items --features '${{
+          matrix.rust.feat }}'
+        env:
+          RUSTDOCFLAGS: -D warnings
+
+      - name: cargo check
+        run: cargo check --features '${{ matrix.rust.feat }}'
+
+      - name: cargo test
+        run: cargo test --features '${{ matrix.rust.feat }}'
+
+      - name: cargo test --examples
+        run: cargo test --examples --features '${{ matrix.rust.feat }}'
+
+      - name: Check if publishable
+        run: cargo publish --dry-run
