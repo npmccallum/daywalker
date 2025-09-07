@@ -19,7 +19,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         rust:
-          - vers: "1.53" # MSRV
+          - vers: "1.56" # MSRV
             feat: ""
           - vers: stable
             feat: ""

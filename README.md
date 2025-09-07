@@ -4,7 +4,7 @@
 [![Documentation](https://docs.rs/nightly/badge.svg)](https://docs.rs/nightly)
 [![Build Status](https://github.com/npmccallum/nightly/workflows/CI/badge.svg)](https://github.com/npmccallum/nightly/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Rust 1.63+](https://img.shields.io/badge/rust-1.63+-orange.svg)](https://www.rust-lang.org)
+[![Rust 1.63+](https://img.shields.io/badge/rust-1.56+-orange.svg)](https://www.rust-lang.org)
 
 Write nightly-conditional code once. Run on both nightly and stable Rust.
 
